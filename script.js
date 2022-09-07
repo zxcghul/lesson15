@@ -1,48 +1,35 @@
 
-const DomElement = function (name) {
+const DomElement = function (name, valueHeight, valueWidth, bgColor, fontSizeValue) {
     this.selector = name,
-    this.height = '',
-    this.width = '',
-    this.bg = '',
-    this.fontSize = ''
+    this.height = valueHeight,
+    this.width = valueWidth,
+    this.bg = bgColor,
+    this.fontSize = fontSizeValue
 
-    this.blockDiv = function () {
-        let div = document.createElement('div');
-        div.className = this.selector;
-        div.style.height = '50px';
-        div.style.width = '400px';
-        div.style.background = 'red';
-        div.style.fontSize = '32px';
-        div.innerHTML = "<strong>DIV</strong> элемент с классом: " + "<strong>" + 
-        div.className + "</strong>";
-        document.body.append(div);  
-    }
-
-    this.blockP = function () {
-        let p = document.createElement('p');
-            p.id = this.selector;
-            p.className = this.selector;
-            p.style.height = '50px';
-            p.style.width = '400px';
-            p.style.background = 'yellow';
-            p.style.fontSize = '32px';
-            p.innerHTML = "<strong>P</strong> элемент с ID: " + "<strong>" + 
-            p.id + "</strong>";
-            document.body.append(p);
-    }
-
-    this.creater = function () {
-        this.selector = this.selector.trim()
+    this.block = function () {
+        let element;
         if (this.selector[0] === '.') {
-            this.blockDiv()
+            element = document.createElement('div');
         }
         if (this.selector[0] === '#') {
-            this.blockP()
+            element = document.createElement('p');
         }
+        element.className = this.selector;
+        element.style.height = this.height;
+        element.style.width = this.width;
+        element.style.background = this.bg;
+        element.style.fontSize = this.fontSize;
+        element.innerHTML = "<strong>DIV</strong> элемент с классом: " + "<strong>" + 
+        element.className + "</strong>";
+        document.body.append(element);  
+    }
+    this.creater = function () {
+        this.selector = this.selector.trim()
+        this.block()
     }
 }
 
-const tester = new DomElement('.logg');
-const tester2 = new DomElement('#porshe');
+const tester = new DomElement('.logg', '200px', '300px', 'red', '30px');
+const tester2 = new DomElement('#porshe', '300px', '200px', 'yellow', '20px');
 tester.creater()
 tester2.creater()
